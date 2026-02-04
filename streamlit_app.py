@@ -1,25 +1,43 @@
 import streamlit as st
+from fractions import Fraction
 
-st.title("💪 Kalkulator Berat Badan Ideal (BMI)")
+st.title("🧮 Kalkulator Pecahan Biasa")
 
-# Input user
-nama = st.text_input("Masukkan nama Anda")
-berat = st.number_input("Berat badan (kg)", min_value=1.0)
-tinggi = st.number_input("Tinggi badan (cm)", min_value=1.0)
+st.write("Masukkan dua pecahan, lalu pilih operasi hitungnya.")
 
-if st.button("Hitung BMI"):
-    tinggi_m = tinggi / 100  # konversi cm ke meter
-    bmi = berat / (tinggi_m ** 2)
+# Input pecahan pertama
+st.subheader("Pecahan Pertama")
+a = st.number_input("Pembilang 1", step=1, format="%d")
+b = st.number_input("Penyebut 1", min_value=1, step=1, format="%d")
 
-    st.subheader(f"Halo, {nama} 👋")
-    st.write(f"**BMI Anda:** {bmi:.2f}")
+# Input pecahan kedua
+st.subheader("Pecahan Kedua")
+c = st.number_input("Pembilang 2", step=1, format="%d")
+d = st.number_input("Penyebut 2", min_value=1, step=1, format="%d")
 
-    if bmi < 18.5:
-        st.warning("Kategori: Kurus")
-    elif bmi < 25:
-        st.success("Kategori: Ideal")
-    elif bmi < 30:
-        st.warning("Kategori: Overweight")
+# Pilih operasi
+operasi = st.selectbox(
+    "Pilih Operasi",
+    ("Penjumlahan (+)", "Pengurangan (-)", "Perkalian (×)", "Pembagian (÷)")
+)
+
+if st.button("Hitung"):
+    f1 = Fraction(a, b)
+    f2 = Fraction(c, d)
+
+    if operasi == "Penjumlahan (+)":
+        hasil = f1 + f2
+    elif operasi == "Pengurangan (-)":
+        hasil = f1 - f2
+    elif operasi == "Perkalian (×)":
+        hasil = f1 * f2
     else:
-        st.error("Kategori: Obesitas")
+        if c == 0:
+            st.error("Tidak bisa dibagi dengan nol ❌")
+            st.stop()
+        hasil = f1 / f2
+
+    st.success(f"Hasil = {hasil}")
+    st.write(f"Dalam desimal = {float(hasil):.3f}")
+
 
