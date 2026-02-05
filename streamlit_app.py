@@ -22,9 +22,7 @@ if st.button("Hitung BMI"):
         kategori = "Gemuk"
     else:
         kategori = "Obesitas"
-        import streamlit as st
-
-
+        
 
    
 
