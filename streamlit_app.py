@@ -1,21 +1,30 @@
 
 import streamlit as st
 
-st.title("Kalkulator Berat Badan Ideal (BBI)")
+st.title("Kalkulator BMI")
 
-# Input data
+# Input
 nama = st.text_input("Masukkan Nama")
-jenis_kelamin = st.selectbox("Pilih Jenis Kelamin", ["Pria", "Wanita"])
-tinggi = st.number_input("Masukkan Tinggi Badan (cm)", min_value=100, max_value=250)
+berat = st.number_input("Masukkan Berat Badan (kg)", min_value=1.0)
+tinggi = st.number_input("Masukkan Tinggi Badan (cm)", min_value=50.0)
 
 # Tombol hitung
-if st.button("Hitung Berat Badan Ideal"):
-    if jenis_kelamin == "Pria":
-        bbi = (tinggi - 100) - ((tinggi - 100) * 0.10)
-    else:
-        bbi = (tinggi - 100) - ((tinggi - 100) * 0.15)
+if st.button("Hitung BMI"):
+    tinggi_m = tinggi / 100  # cm ke meter
+    bmi = berat / (tinggi_m ** 2)
 
-    st.success(f"Halo {nama}, berat badan ideal kamu adalah **{bbi:.1f} kg**")
+    # Kategori BMI
+    if bmi < 18.5:
+        kategori = "Kurus"
+    elif bmi < 25:
+        kategori = "Normal"
+    elif bmi < 30:
+        kategori = "Gemuk"
+    else:
+        kategori = "Obesitas"
+
+    st.success(f"Halo {nama}, BMI kamu adalah **{bmi:.2f}**")
+    st.info(f"Kategori: **{kategori}**")
 
 
 
