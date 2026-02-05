@@ -1,5 +1,5 @@
 
-   import streamlit as st
+  import streamlit as st
 
 st.title("Kalkulator Berat Badan Ideal (BBI)")
 
@@ -16,5 +16,6 @@ if st.button("Hitung Berat Badan Ideal"):
         bbi = (tinggi - 100) - ((tinggi - 100) * 0.15)
 
     st.success(f"Halo {nama}, berat badan ideal kamu adalah **{bbi:.1f} kg**")
+
 
 
