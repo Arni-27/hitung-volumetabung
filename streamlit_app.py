@@ -22,6 +22,52 @@ if st.button("Hitung BMI"):
         kategori = "Gemuk"
     else:
         kategori = "Obesitas"
+        import streamlit as st
+
+st.title("Kalkulator BMI + Saran Berat Badan")
+
+# Input
+nama = st.text_input("Masukkan Nama")
+berat = st.number_input("Masukkan Berat Badan (kg)", min_value=1.0)
+tinggi = st.number_input("Masukkan Tinggi Badan (cm)", min_value=50.0)
+
+if st.button("Hitung BMI"):
+    tinggi_m = tinggi / 100
+    bmi = berat / (tinggi_m ** 2)
+
+    # Kategori BMI
+    if bmi < 18.5:
+        kategori = "Kurus"
+    elif bmi < 25:
+        kategori = "Normal"
+    elif bmi < 30:
+        kategori = "Gemuk"
+    else:
+        kategori = "Obesitas"
+
+    st.success(f"Halo {nama}, BMI kamu adalah **{bmi:.2f}**")
+    st.info(f"Kategori: **{kategori}**")
+
+    # Target BMI normal
+    bmi_target = 22
+    berat_ideal = bmi_target * (tinggi_m ** 2)
+
+    # Saran berat badan
+    if kategori == "Normal":
+        st.success("Berat badan kamu sudah ideal 👍 Pertahankan ya!")
+    elif kategori == "Kurus":
+        selisih = berat_ideal - berat
+        st.warning(
+            f"Untuk mencapai berat ideal, kamu perlu **menambah sekitar {selisih:.1f} kg**."
+        )
+    else:
+        selisih = berat - berat_ideal
+        st.warning(
+            f"Untuk mencapai berat ideal, kamu perlu **menurunkan sekitar {selisih:.1f} kg**."
+        )
+
+    st.write(f"Perkiraan berat badan ideal kamu: **{berat_ideal:.1f} kg**")
+
 
     st.success(f"Halo {nama}, BMI kamu adalah **{bmi:.2f}**")
     st.info(f"Kategori: **{kategori}**")
