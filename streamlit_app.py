@@ -1,5 +1,6 @@
 
-import streamlit as st
+
+    import streamlit as st
 
 st.title("Kalkulator BMI")
 
@@ -22,6 +23,10 @@ if st.button("Hitung BMI"):
         kategori = "Gemuk"
     else:
         kategori = "Obesitas"
+
+    st.success(f"Halo {nama}, BMI kamu adalah **{bmi:.2f}**")
+    st.info(f"Kategori: **{kategori}**")
+
         
 
    
